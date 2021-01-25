@@ -32,14 +32,20 @@ function recursivePalinedromeCalculator(word, firstIndex=0){
   if (firstIndex >= word.length){
     return 0;
   }
-  for (var j = firstIndex + 1; j < word.toLowerCase().length; j++){
-    var testWord = word.slice(firstIndex,j+1);
-    var reversedTestWord = testWord.split("").reverse().join("");
-    if (testWord == reversedTestWord){
-      numberOfPalinedromes+=1;
-    } 
-  }
+  numberOfPalinedromes = recursivePalinedromeCalculatorHelper(word, firstIndex, firstIndex+1)
   return numberOfPalinedromes + recursivePalinedromeCalculator(word, firstIndex+1)
+}
+
+function recursivePalinedromeCalculatorHelper(word, firstIndex, secondIndex){
+  if (secondIndex >= word.length){
+    return 0
+  }
+  var testWord = word.slice(firstIndex, secondIndex+1);
+  var reversedTestWord = testWord.split("").reverse().join("");
+  if (testWord == reversedTestWord){
+      return 1 + recursivePalinedromeCalculatorHelper(word, firstIndex, secondIndex+1)
+    }
+  return 0 + recursivePalinedromeCalculatorHelper(word, firstIndex, secondIndex+1)
 }
 
 console.log(iterativeSumOfDigits(314159265359))
